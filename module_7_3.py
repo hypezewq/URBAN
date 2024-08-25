@@ -1,7 +1,7 @@
 import os
 import time
 
-directory = "F:/Danya/python_projects/yandex-course/urban"
+directory = "."
 for root, dirs, files in os.walk(directory):
     for file in files:
         filepath = os.path.join(root, file)
