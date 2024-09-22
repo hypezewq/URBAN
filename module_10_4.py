@@ -41,16 +41,17 @@ class Cafe:
             print(f"{guest.name} в очереди")
 
     def discuss_guests(self):
-        while not self.guest_queue.empty():
+        while not self.guest_queue.empty() or [table.guest for table in self.tables if table.guest]:
             for table in self.tables:
                 if table.guest and not table.guest.is_alive():
                     print(f"{table.guest.name} покушал(-а) и ушёл(ушла)")
-                    table.guest = None
                     print(f"Стол номер {table.number} свободен")
-                    guest = self.guest_queue.get()
-                    print(f"{guest.name} вышел(-ла) из очереди и сел(-а) за стол номер {table.number}")
-                    table.guest = guest
-                    guest.start()
+                    table.guest = None
+                    if not self.guest_queue.empty():
+                        guest = self.guest_queue.get()
+                        print(f"{guest.name} вышел(-ла) из очереди и сел(-а) за стол номер {table.number}")
+                        table.guest = guest
+                        guest.start()
 
 
 # Создание столов
